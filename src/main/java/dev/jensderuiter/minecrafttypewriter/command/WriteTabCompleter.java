@@ -40,8 +40,5 @@ public class WriteTabCompleter implements TabCompleter {
         String line = Arrays.stream(args).reduce("",  (text, elem) -> text + " " + elem).stripLeading();
 
         typeWriter.newData(line);
-
-        Bukkit.getLogger().info(line);
-
     }
 }
