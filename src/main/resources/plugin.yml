@@ -1,0 +1,8 @@
+name: minecraft_typewriter
+version: '${project.version}'
+main: dev.jensderuiter.minecrafttypewriter.TypewriterPlugin
+api-version: '1.20'
+commands:
+  w:
+  wc:
+  typewriter:
