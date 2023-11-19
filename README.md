@@ -21,4 +21,6 @@ I think it's a nice project to work on my skills,
 and have a little fun :).
 
 ## Demo
+(this is an old version of the plugin)
+
 [![Demo video](https://img.youtube.com/vi/NbHeJum--Yk/0.jpg)](https://www.youtube.com/watch?v=NbHeJum--Yk)
