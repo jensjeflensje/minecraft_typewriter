@@ -22,14 +22,21 @@ public class Util {
             float yaw
     ) {
         Location rotatedLocation = baseLocation.clone();
+        rotatedLocation.add(getRotatedVector(offset, baseYaw));
+        rotatedLocation.setYaw(baseYaw + yaw);
+        rotatedLocation.setPitch(pitch);
+        return rotatedLocation;
+    }
+
+    public static Vector getRotatedVector(
+            Vector offset,
+            float baseYaw
+    ) {
         double sinus = Math.sin(baseYaw / 180 * Math.PI);
         double cosinus = Math.cos(baseYaw / 180 * Math.PI);
         double newX = offset.getX() * cosinus - offset.getZ() * sinus;
         double newZ = offset.getZ() * cosinus + offset.getX() * sinus;
-        rotatedLocation.add(newX, offset.getY(), newZ);
-        rotatedLocation.setYaw(baseYaw + yaw);
-        rotatedLocation.setPitch(pitch);
-        return rotatedLocation;
+        return new Vector(newX, offset.getY(), newZ);
     }
 
 }
