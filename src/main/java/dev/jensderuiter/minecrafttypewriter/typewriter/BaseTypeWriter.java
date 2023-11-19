@@ -94,7 +94,7 @@ public abstract class BaseTypeWriter implements TypeWriter {
     public void newData(String data) {
         if (this.currentLine.length() < data.length()) {
             // a character has been added
-            String addedChar = data.substring(data.length() - 1);
+            String addedChar = data.substring(data.length() - 1).toLowerCase();
 
             BaseTypeWriterButtonComponent clickedButton = this.keyboardButtons.get(addedChar);
             if (clickedButton != null) clickedButton.press();
