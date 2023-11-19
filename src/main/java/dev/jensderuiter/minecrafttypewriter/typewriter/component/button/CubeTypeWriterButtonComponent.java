@@ -1,6 +1,7 @@
 package dev.jensderuiter.minecrafttypewriter.typewriter.component.button;
 
 import dev.jensderuiter.minecrafttypewriter.TypewriterPlugin;
+import dev.jensderuiter.minecrafttypewriter.Util;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -31,7 +32,8 @@ public class CubeTypeWriterButtonComponent extends BaseTypeWriterButtonComponent
     @Override
     public void setUp(Location location) {
         this.location = location;
-        this.pinLocation = this.location.clone().add(-0.05, -0.05, -0.01);
+        this.pinLocation = this.location.clone().add(
+                Util.getRotatedVector(new Vector(-0.05, -0.05, -0.01), this.location.getYaw()));
 
         this.skullDisplay = (ItemDisplay) location.getWorld().spawnEntity(
                 location, EntityType.ITEM_DISPLAY);
