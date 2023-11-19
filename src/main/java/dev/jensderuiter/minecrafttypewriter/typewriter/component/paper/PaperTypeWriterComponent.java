@@ -47,7 +47,7 @@ public class PaperTypeWriterComponent implements TypeWriterComponent {
                 location.getYaw()
         ));
 
-        this.textLocation = location.clone().add(location.getDirection().multiply(-0.08)); // a bit off the paper
+        this.textLocation = location.clone().add(location.getDirection().multiply(-0.1)); // a bit off the paper
         this.textLocation.setYaw(this.textLocation.getYaw() + 180); // flip so it's facing the player
         this.textLocation = Util.getRotatedLocation( // in the middle of the keyboard
                 this.textLocation, new Vector(0.05, 0, 0), this.textLocation.getYaw(), 0, 0);
