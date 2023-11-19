@@ -1,9 +1,6 @@
 package dev.jensderuiter.minecrafttypewriter;
 
-import dev.jensderuiter.minecrafttypewriter.command.CompleteCommand;
-import dev.jensderuiter.minecrafttypewriter.command.SpawnCommand;
-import dev.jensderuiter.minecrafttypewriter.command.WriteCommand;
-import dev.jensderuiter.minecrafttypewriter.command.WriteTabCompleter;
+import dev.jensderuiter.minecrafttypewriter.command.*;
 import dev.jensderuiter.minecrafttypewriter.typewriter.TypeWriter;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -24,6 +21,7 @@ public final class TypewriterPlugin extends JavaPlugin {
 
         getCommand("typewriter").setExecutor(new SpawnCommand());
         getCommand("wc").setExecutor(new CompleteCommand());
+        getCommand("wr").setExecutor(new RemoveCommand());
         getCommand("w").setExecutor(new WriteCommand());
         getCommand("w").setTabCompleter(new WriteTabCompleter());
 
