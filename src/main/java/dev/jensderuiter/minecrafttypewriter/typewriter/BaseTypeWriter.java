@@ -27,6 +27,8 @@ import java.util.UUID;
 
 public abstract class BaseTypeWriter implements TypeWriter {
 
+    private final int MAX_LINES = 20;
+
     protected Location baseLocation;
     protected Vector playerDirection;
     protected float playerPitch;
@@ -106,6 +108,8 @@ public abstract class BaseTypeWriter implements TypeWriter {
 
     @Override
     public void newLine() {
+        if (this.lines.size() >= this.MAX_LINES) return;
+
         this.lines.add(this.currentLine);
         this.currentLine = "";
         this.keyboardButtons.get("enter").press();
