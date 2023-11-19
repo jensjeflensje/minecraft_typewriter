@@ -8,6 +8,7 @@ import dev.jensderuiter.minecrafttypewriter.typewriter.component.TypeWriterCompo
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.button.BarTypeWriterButtonComponent;
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.button.BaseTypeWriterButtonComponent;
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.button.CubeTypeWriterButtonComponent;
+import dev.jensderuiter.minecrafttypewriter.typewriter.component.casing.MainTypeWriterCasingComponent;
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.paper.PaperTypeWriterComponent;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
@@ -83,6 +84,10 @@ public abstract class BaseTypeWriter implements TypeWriter {
         paperComponent = new PaperTypeWriterComponent();
         paperComponent.setUp(this.getPaperLocation());
         this.components.add(paperComponent);
+
+        MainTypeWriterCasingComponent mainCasingComponent = new MainTypeWriterCasingComponent();
+        mainCasingComponent.setUp(this.getCasingLocation());
+        this.components.add(mainCasingComponent);
     }
 
     @Override
@@ -151,6 +156,15 @@ public abstract class BaseTypeWriter implements TypeWriter {
      */
     protected Location getPaperLocation() {
         return this.getRotatedLocation(new Vector(0, 0, -0.8), 0, 180);
+    }
+
+    /**
+     * Get the base location for the typewriter.
+     * Should be in a place where it's visible to the player.
+     * @return The base location for the typewriter
+     */
+    protected Location getCasingLocation() {
+        return this.getRotatedLocation(new Vector(-1.2, -1.05, -1.2));
     }
 
     /**

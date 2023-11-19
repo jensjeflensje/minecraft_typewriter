@@ -2,7 +2,6 @@ package dev.jensderuiter.minecrafttypewriter.command;
 
 import dev.jensderuiter.minecrafttypewriter.TypewriterPlugin;
 import dev.jensderuiter.minecrafttypewriter.typewriter.TypeWriter;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

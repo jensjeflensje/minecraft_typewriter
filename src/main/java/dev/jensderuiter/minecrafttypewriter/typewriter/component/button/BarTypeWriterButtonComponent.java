@@ -18,6 +18,8 @@ import java.util.List;
 
 public class BarTypeWriterButtonComponent extends BaseTypeWriterButtonComponent  {
 
+    private final double Y_VALUE = -0.15;
+
     private ItemStack skull;
     private List<ItemDisplay> skullDisplays;
     private int amount;
@@ -37,7 +39,7 @@ public class BarTypeWriterButtonComponent extends BaseTypeWriterButtonComponent 
 
         for (int i = 0; i < this.amount; i++) {
             Location displayLocation = Util.getRotatedLocation(
-                    location, new Vector(-(amount*0.05) + (0.1*i), 0, 0), this.location.getYaw(), 0, 0);
+                    location, new Vector(-(amount*0.05) + (0.1*i), Y_VALUE, 0), this.location.getYaw(), 0, 0);
             ItemDisplay skullDisplay = (ItemDisplay) location.getWorld().spawnEntity(
                     displayLocation, EntityType.ITEM_DISPLAY);
             skullDisplay.setItemStack(this.skull);
@@ -72,7 +74,7 @@ public class BarTypeWriterButtonComponent extends BaseTypeWriterButtonComponent 
     public void offsetTeleport(Vector offset) {
         this.skullDisplays.forEach(display -> {
             Location displayLocation = display.getLocation();
-            displayLocation.setY(this.location.getY());
+            displayLocation.setY(this.location.getY() + Y_VALUE);
             displayLocation.add(offset);
             display.teleport(displayLocation);
         });
