@@ -10,6 +10,7 @@ import dev.jensderuiter.minecrafttypewriter.typewriter.component.button.BaseType
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.button.CubeTypeWriterButtonComponent;
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.casing.MainTypeWriterCasingComponent;
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.paper.PaperTypeWriterComponent;
+import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
@@ -19,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
@@ -42,6 +44,7 @@ public abstract class BaseTypeWriter implements TypeWriter {
     protected HashMap<String, Vector> keyboardLayout;
     protected HashMap<String, String> keyboardTextures;
     protected HashMap<String, BaseTypeWriterButtonComponent> keyboardButtons;
+    @Getter
     protected PaperTypeWriterComponent paperComponent;
 
     public BaseTypeWriter(Player player) {
@@ -124,12 +127,27 @@ public abstract class BaseTypeWriter implements TypeWriter {
     }
 
     /**
-     * Complete the letter by removing the typewriter and exporting the letter to a book.
+     * Complete the letter by removing the typewriter, running an animation and exporting the letter to a book.
      */
     @Override
     public void complete() {
-        this.destroy(); // completed, so no need
+        int animationDuration = 20;
+        this.getPaperComponent().setAnimation(new Vector(0, 1, 0), 0, animationDuration);
+        final BaseTypeWriter typeWriter = this;
+        new BukkitRunnable() {
 
+            @Override
+            public void run() {
+                typeWriter.destroy();
+                typeWriter.giveLetter();
+            }
+        }.runTaskLater(TypewriterPlugin.getInstance(), animationDuration);
+    }
+
+    /**
+     * Render the letter's text in a book and give it to the player.
+     */
+    public void giveLetter() {
         ItemStack book = new ItemStack(Material.WRITTEN_BOOK);
         BookMeta bookMeta = (BookMeta) book.getItemMeta();
         bookMeta.setAuthor(this.player.getName());
@@ -139,7 +157,6 @@ public abstract class BaseTypeWriter implements TypeWriter {
                 TextColor.color(0)
         ));
         book.setItemMeta(bookMeta);
-
 
         this.player.getInventory().addItem(book);
     }

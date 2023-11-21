@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemDisplay;
 import org.bukkit.entity.TextDisplay;
@@ -17,6 +18,7 @@ import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class PaperTypeWriterComponent implements TypeWriterComponent {
 
@@ -69,6 +71,21 @@ public class PaperTypeWriterComponent implements TypeWriterComponent {
     public void destroy() {
         this.paperDisplay.remove();
         this.textDisplays.forEach(TextDisplay::remove);
+    }
+
+    public void applyAllEntities(Consumer<Display> func) {
+        func.accept(this.paperDisplay);
+        this.textDisplays.forEach(func);
+    }
+
+    public void setAnimation(Vector movement, int delay, int duration) {
+        applyAllEntities(display -> display.setInterpolationDelay(delay));
+        applyAllEntities(display -> display.setInterpolationDuration(duration));
+        applyAllEntities(display -> {
+            Transformation transformation = display.getTransformation();
+            transformation.getTranslation().set(movement.getX(), movement.getY(), movement.getZ());
+            display.setTransformation(transformation);
+        });
     }
 
     public void moveUp() {
