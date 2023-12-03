@@ -104,8 +104,7 @@ public class PaperTypeWriterComponent implements TypeWriterComponent {
         textDisplay.setAlignment(TextDisplay.TextAlignment.LEFT);
         textDisplay.setText(line);
         textDisplay.setLineWidth(LINE_WIDTH);
-        textDisplay.setDefaultBackground(false);
-        textDisplay.setBackgroundColor(Color.fromRGB(100, 100, 100));
+        textDisplay.setBackgroundColor(Color.fromARGB(0));
 
         Transformation textTransformation = textDisplay.getTransformation();
         textTransformation.getScale().set(TEXT_SIZE);
