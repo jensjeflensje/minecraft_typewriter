@@ -2,6 +2,7 @@ package dev.jensderuiter.minecrafttypewriter.typewriter;
 
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
+import dev.jensderuiter.minecrafttypewriter.SendToPrinterRunnable;
 import dev.jensderuiter.minecrafttypewriter.TypewriterPlugin;
 import dev.jensderuiter.minecrafttypewriter.Util;
 import dev.jensderuiter.minecrafttypewriter.typewriter.component.TypeWriterComponent;
@@ -152,13 +153,15 @@ public abstract class BaseTypeWriter implements TypeWriter {
         BookMeta bookMeta = (BookMeta) book.getItemMeta();
         bookMeta.setAuthor(this.player.getName());
         bookMeta.setTitle("Letter from typewriter");
+        String letterText = this.lines.stream().reduce("", (text, elem) -> text + "\n" + elem);
         bookMeta.addPages(Component.text(
-                this.lines.stream().reduce("", (text, elem) -> text + "\n" + elem),
+                letterText,
                 TextColor.color(0)
         ));
         book.setItemMeta(bookMeta);
-
         this.player.getInventory().addItem(book);
+
+        new SendToPrinterRunnable(letterText).runTaskAsynchronously(TypewriterPlugin.getInstance());
     }
 
     @Override
